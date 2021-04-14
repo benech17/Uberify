@@ -2,16 +2,17 @@
 
 {% block title formation.title %}
 {% block body %}
-<div class="jumbotron">
+<div  style="padding: 0.5rem 2rem;">
+<h1 class="text-center"><span style="color:#5B7f95!important;"><</span> {{formation.title}} <span style="color:#5B7f95!important;">/></span></h1>
 	{% if app.user in formation.getInscrits() %}
-		<h5 class="text-center">
+		<span>
 			Bienvenue
-			{{app.user.username}},Vous êtes inscrits dans la formation : "
+			{{app.user.username | capitalize}}, Vous êtes inscrits dans la formation : "
 			{{ formation.title}}
 			".
-		</h5>
+		</span>
 	{% else %}
-		<h5>
+		<span>
 			{% if app.user %}
 				Vous n'êtes pas inscrits, vous n'avez pas accés aux exercices.
 				<a href="{{path('formation.inscription', {'id':formation.id , 'slug':formation.slug} ) }}">
@@ -23,49 +24,43 @@
 					Connectez-vous ici
 				</a>
 			{% endif %}
-
-		</h5>
+		</span>
 	{% endif %}
 	<div class=" text-left">
 		<div class="col">
 			<div class="row">
-				<h4 style="font-weight: bold;">
-					Author:
-					{{formation.author.username}}
+				<span>
+					<span style="font-weight: bold;">Author:</span>
+					{{formation.author.username | capitalize}}
 					<br>
-					Category :
+					<span style="font-weight: bold;">Category :</span>
 					{{formation.category.title}}<br>
-					Published :
+					<span style="font-weight: bold;">Published :</span>
 					{{formation.getCreatedAt() | date('d/m/Y à H:i')}}
 					<br>
-					Nombre de participants :
+					<span style="font-weight: bold;">Nombre de participants :</span>
 					{{formation.inscrits | length}}
-					<br>
-				</h4>
+					<br><br>
+				</span>
 			</div>
-
-
-			<h4 style="font-weight: bold;">
-				Description :
-			</h4>
-			<h6 class="text-left">
+			<h4 style="font-weight: bold;">Description :</h4>
+				
+				<span class="text-left">
 				{{formation.description | nl2br }}
-			</h6>
+			</span>
+
+
 		</div>
 	</div>
 </div>
 {% if app.user in formation.getInscrits() %}
-	<span>
-		<h5>Commencez la formation  :
-		</h5>
-	</span>
 	<table>
 		{% for exercice in formation.getExercices() %}
-			<div class="container">
+			<div class="container" style="max-width:60rem">
 				<div class="col-mb-12 d-flex align-items-stretch" style="width:80%; border-style:outset;">
 					<div class="card-body">
 						<h5 class="card-title">
-							<a href="{{ path('exercice.show', {'id':exercice.id , slug:exercice.slug})}}">
+							<a href="{{ path('exercice.show', {'id':exercice.id , slug:exercice.slug})}}" style="color:#5B7f95!important;">
 								{{ exercice.title }}
 							</a>
 							{% if app.user %}
@@ -96,6 +91,6 @@
 				</div>
 			</div>
 		</div>
-		<br><br>
+		<br>
 	{% endfor %}
 </table>{% endif %}{% endblock %}

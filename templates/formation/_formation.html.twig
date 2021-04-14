@@ -17,7 +17,7 @@
 
 	<div class="card-body">
 		<h5 class="card-title">
-			<a href="{{ path('formation.show', {'id':formation.id , slug:formation.slug})}}">
+			<a href="{{ path('formation.show', {'id':formation.id , slug:formation.slug})}}" style="color:#5B7f95!important;">
 				{{ formation.title }}
 			</a>
 			{% if app.user %}
@@ -39,7 +39,7 @@
 		{% if app.user  %}
 			<div>
 				{% if app.user in formation.getInscrits() %}
-					<a href="{{ path('formation.inscription', {'id':formation.id , slug:formation.slug})}}">
+					<a href="{{ path('formation.inscription', {'id':formation.id , slug:formation.slug})}}" style="color:#5B7f95!important;">
 						Continuez votre formation</a>
 				{% else %}
 					<a href="{{ path('formation.inscription', {'id':formation.id , slug:formation.slug})}}">

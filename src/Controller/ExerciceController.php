@@ -185,7 +185,7 @@ class ExerciceController extends AbstractController
     }
 
     /**
-     * @Route("/exercices/{id}/vote/{feedback}",name="exercice.play",requirements={"slug": "[a-z0-9\-]*", "feedback" : "\d+"})
+     * @Route("/exercices/{id}/vote/{feedback}",name="exercice.feedback",requirements={"slug": "[a-z0-9\-]*", "feedback" : "\d+"})
      * @return Response
      */
     public function voter($id, $feedback, Request $request, Security $security, EntityManagerInterface $manager)

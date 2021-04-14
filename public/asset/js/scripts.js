@@ -19,7 +19,30 @@ function getArray() {
     });
     return indexArray;
 }
-
+function giveFeedback(num,exoid){
+    $.ajax({
+        type: 'GET',
+        url: '/exercices/'+exoid+'/vote/'+num.id[1],
+        dataType: "json",
+    })
+    .done(function(data) {
+        var json = JSON.parse(data);
+        console.log(data);
+        if (json["result"] == 's') {
+            $('#rating').html("👍")
+            setTimeout(function () {
+                $('#feedbackModal').modal('hide');
+            }, 5000);
+        }
+    })
+    .fail(function(jqXHR, textStatus) {
+        alert('Veuillez déplacer au moins une case ');
+    })
+    .always(function(jqXHR, textStatus) {
+        //window.document.location = '/';
+    });
+    // /exercices/{id}/vote/{feedback}
+}
 // Envoi les donnée post via une requete async. ajax
 function postRequest() {
     var indexArray = getArray();
@@ -57,7 +80,7 @@ function postRequest() {
 
             } else {
                 resultView.innerHTML = '<span id="result" class="card-title center green-text">Succès</span>';
-                alert("Bravo ! ");
+                $("#feedbackModal").modal()
             }
 
         })

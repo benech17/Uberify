@@ -62,3 +62,28 @@ pre {
     border-radius: 50%;
     border: 5px solid rgba(0,0,30,0.8);
   }
+
+  .rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    font-size: 50px;
+  }
+  .rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+  }
+  .rating > span:hover,
+  .rating > span:hover ~ span {
+    color: transparent;
+    cursor: pointer;
+  }
+  .rating > span:hover:before,
+  .rating > span:hover ~ span:before {
+     content: "\2605";
+     position: absolute;
+     left: 0; 
+     color: gold;
+     cursor: pointer;
+  }
