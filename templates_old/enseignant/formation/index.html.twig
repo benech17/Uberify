@@ -3,24 +3,14 @@
 
 {% block body %}
 	<div class="container mt-4">
-		<div class="container mt-4">
-		<div class="row">
-			<div class="col">
-			<a href="{{path('enseignant.formation.index')}}" style="color:#5B7f95!important;">Gérer les formations
+
+		<h1>
+			<a href="{{path('enseignant.exercice.index')}}" style="opacity:0.3;">Gérer les exercices
 			</a>
-			</div>
-			<div class="col">
-			<a href="{{path('enseignant.exercice.index')}}" style="color:#5B7f95!important;">Gérer les exercices >
+			&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; | &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+			<a href="{{path('enseignant.formation.index')}}">Gérer les formations
 			</a>
-			</div>
-			<div class="col">
-			 
-			</div>
-			<div class="col">
-			<a href="{{path('enseignant.formation.new')}}" class="btn" style="background-color:#5B7f95!important;color:#FFF">
-				Créer une nouvelle formation</a>
-			</div>
-		</div>
+		</h1>
 		{% for message in app.flashes('enseignant-formation') %}
 			<div class="alert alert-success">
 				{{message}}
@@ -57,7 +47,8 @@
 			</tbody>
 		</table>
 		<div class="text-right">
-			
+			<a href="{{path('enseignant.formation.new')}}" class="btn btn-primary">
+				Créer une nouvelle formation</a>
 		</div>
 	</div>
 {% endblock %}

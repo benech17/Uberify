@@ -7,6 +7,21 @@
 			<h3>
 				Rechercher un exercice
 			</h3>
+			{{form_start(form)}}
+			<div class="form-row align-items-end">
+				<div class="col">
+					{{ form_row(form.minDifficulte) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.category) }}
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<button class="btn btn-primary">Rechercher</button>
+					</div>
+				</div>
+			</div>
+			{{form_end(form)}}
 		</div>
 	</div>
 	<div class="container mt-4">
@@ -19,6 +34,10 @@
 					{% include( 'exercice/_exercice.html.twig') %}
 				</div>
 			{% endfor %}
+		</div>
+
+		<div class="pagination">
+			{{ knp_pagination_render(exercices)}}
 		</div>
 	</div>
 {% endblock %}

@@ -24,10 +24,10 @@
 	<div class="container">
 
 
-		<div class="row" style="margin-bottom: 20px;">
-			<div class="col-md-17" style="padding-top:1rem">
+		<div class="row">
+			<div class="col-md-17">
 				<div class="card">
-					<div class="card-image" style="padding-top:1rem">
+					<div class="card-image">
 						{% if exercice.category.title == 'Java' %}
 							<img src="/images/utils/java.jpg " alt="card-img-top" class="center">
 						{% elseif exercice.category.title =='C' %}
@@ -45,47 +45,51 @@
 						{% endif %}
 
 					</div>
-					<div class="card-content" style="padding-top:0rem">
-						<h3><span >[{{exercice.category.title}}]</span> {{exercice.title}}</h3>
-						<h6>{{exercice.description | nl2br }}</h6>
-						{% for i in range(1,5) %}
-							{% if exercice.difficulte >= i %}
-								<span style="width=15px ;  height=15px ; color: rgb(253, 204, 13);">
-									<i class="fas fa-star"></i>
-								</span>
-							{% else %}
-								<span style="width=15px ;  height=15px ; color: rgb(253, 204, 13);">
-									<i class="far fa-star"></i>
-								</span>
-							{% endif %}
-						{% endfor %}
-						<small>
+					<div class="card-content">
+						<h3>
+							{{exercice.title}}
+						</h3>
+						<h5>
 							{{exercice.difficulte}}
-							Crée le
+							étoiles  - crée le
 							{{exercice.createdAt | date('d/m/Y')}}
 							à
 							{{exercice.createdAt | date('H:i')}}
+							dans la catégorie
+							{{exercice.category.title}}
 							par
 							{% if exercice.author %}
 								{{exercice.author.username}}
 							{% endif %}
-						</small>
-						<div style="padding-top:1rem">
-							<a href="mailto:someone@codfiy.com" class="btn" style="background-color:#5B7f95!important;">
-								Contacter l'enseignant
+						</h5>
+
+						<a href="mailto:someone@codfiy.com" class="btn btn btn-success">
+							Contacter l'enseignant
+						</a>
+
+						{% if app.user %}
+							<a href="{{ path('exercice.play', {'id':exercice.id , slug:exercice.slug}) }}">
+								<img src="/images/utils/play-btn.png " alt="Play" style="width: 50px; height:50px;">
 							</a>
-							{% if app.user %}
-								<a href="{{ path('exercice.play', {'id':exercice.id , slug:exercice.slug}) }}">
-									<img src="/images/utils/play-btn.png " alt="Play" style="width: 50px; height:50px;">
-								</a>
-							{% endif %}
-						</div>
+						{% endif %}
+
 
 					</div>
 				</div>
 			</div>
 		</div>
-		<section id="commentaires" style>
+		<span>
+			<h4>
+				Description
+			</h4>
+			<h6>
+				{{exercice.description | nl2br }}
+			</h6>
+		</span>
+
+		<section id="commentaires">
+
+
 			<div class="row">
 				<h3>Comments |{{exercice.comments | length }}|
 				</h3>
@@ -126,13 +130,12 @@
 				</div>
 				{{form_end(commentForm)}}
 			{% else %}
-				<a href="{{path('login')}}" class="btn" style="background-color:#5B7f95!important;">
+				<h3>
+					Vous ne pouvez pas commenter si vous n'etes pas connecté !
+				</h3>
+				<a href="{{path('login')}}" class="btn btn-primary">
 					Connexion
 				</a>
-				<span>
-					Vous ne pouvez pas commenter si vous n'etes pas connecté !
-				</span>
-				
 			{% endif %}
 
 		</div>

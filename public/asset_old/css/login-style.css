@@ -5,7 +5,7 @@ html {
     height: 100%;
     background-repeat: no-repeat;
     /*background-image: linear-gradient(rgb(12, 97, 33),rgb(104, 145, 162));*/
-    background: rgb(255, 255, 255);
+    background: black;
     position: relative;
 }
 
@@ -16,20 +16,22 @@ html {
     transform: translateX(-50%);
     width: 350px;
     margin: auto;
-    background: #5B7f95;
+    border: 1px solid black;
+    background: rgba(48, 46, 45, 1);
     min-height: 250px;
     padding: 20px;
     z-index: 9999;
 }
 
 #login-box .logo .logo-caption {
+    font-family: 'Poiret One', cursive;
     color: white;
     text-align: center;
     margin-bottom: 0px;
 }
 
 #login-box .logo .tweak {
-    color: #FF9900;
+    color: #007afe;
 }
 
 #login-box .controls {
@@ -38,12 +40,8 @@ html {
 
 #login-box .controls input {
     border-radius: 0px;
-    background: #9cb2bf;
+    background: rgb(98, 96, 96);
     border: 0px;
-    padding-left: 10px;
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;      
     color: white;
     font-family: 'Nunito', sans-serif;
 }
@@ -65,7 +63,8 @@ html {
 #login-box button.btn-custom {
     border-radius: 2px;
     margin-top: 8px;
-    background: #9cb2bf;
+    background: #007afe;
+    border-color: rgba(48, 46, 45, 1);
     color: white;
     font-family: 'Nunito', sans-serif;
 }
@@ -76,21 +75,9 @@ html {
     -ms-transition: all 500ms ease;
     -o-transition: all 500ms ease;
     transition: all 500ms ease;
-    background: #FF9900;
+    background: rgba(48, 46, 45, 1);
+    border-color: #ff5252;
 }
-
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #e9ecef;
-    opacity: 1; /* Firefox */
-  }
-  
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #e9ecef;
-  }
-  
-  ::-ms-input-placeholder { /* Microsoft Edge */
-    color: #e9ecef;
-  }
 
 #particles-js {
     width: 100%;
@@ -101,9 +88,4 @@ html {
     top: 0;
     margin-top: 70px;
     z-index: 1;
-    color: #FF9900;
-}
-
-label{
-    color: #FFF;
 }

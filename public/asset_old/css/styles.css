@@ -14,29 +14,13 @@
     width: 100%;
 }
 
-pre {
-    display: inline;
-    margin: 0;
-}
-.hljs {
-    padding: 0 !important;;
-}
-
-.upperRow{
-    margin-bottom:0px !important;
-    margin-top:2rem !important; 
-}
-.lowerRow{
-    margin-top:0px !important; 
-}
-
 .sortable li {
     margin: 0 3px 3px 3px;
     padding: 0.4em;
     padding-left: 1.5em;
     font-size: 1em;
     height: 30px;
-    background-color: #f0f0f0;
+    background-color: #546e7a;
 }
 
 .container {
@@ -47,18 +31,3 @@ pre {
     background-color: #c71d1d;
     color: white;
 }
-
-.avatar {
-    position: relative;
-    margin-top: 15px;
-    z-index: 100;
-  }
-
-.avatar img {
-    width: 100px;
-    height: 100px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    border: 5px solid rgba(0,0,30,0.8);
-  }

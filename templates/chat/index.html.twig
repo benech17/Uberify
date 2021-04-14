@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+		<link rel="stylesheet" href="/asset/css/login-style.css">
+
+	{% endblock %}
+{% block title ' Messagerie '%}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>
+			Voir tous les Conversations
+		</h1>
+		<div class="row">
+			{% for user in users %}
+				<div class="col-md-4 d-flex align-items-stretch">
+					{% include( 'chat/_user.html.twig') %}
+				</div>
+			{% endfor %}
+		</div>
+		<div class="pagination">
+			{{ knp_pagination_render(users)}}
+		</div>
+	</div>
+{% endblock %}

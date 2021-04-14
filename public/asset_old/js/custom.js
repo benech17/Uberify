@@ -15,13 +15,13 @@ $(document).ready(function() {
                         }
                     },
                     "color": {
-                        "value": "#FF9900"
+                        "value": "#ffffff"
                     },
                     "shape": {
                         "type": "circle",
                         "stroke": {
                             "width": 0,
-                            "color": "#FF9900"
+                            "color": "#000000"
                         },
                         "polygon": {
                             "nb_sides": 5
@@ -54,7 +54,7 @@ $(document).ready(function() {
                     "line_linked": {
                         "enable": true,
                         "distance": 150,
-                        "color": "#FF9900",
+                        "color": "#ffffff",
                         "opacity": 0.4,
                         "width": 1
                     },

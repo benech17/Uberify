@@ -15,21 +15,19 @@
 {% block body %}
 
 	<!-- start section description -->
-	<div class="container-md">
-	<div class="row upperRow">
-		<div class="col s12 m6 mt-auto">
+	<div class="row">
+		<div class="col s12 m6">
 			<div class="card white">
-				<div class="card-content text-black darken-1">
-					<a class="text-secondary" href="{{path('exercice.show',{slug: exercice.slug,id: exercice.id})}}"><b><</b>Retourner</a>
+				<div class="card-content blue-grey-text darken-1">
 					<span class="card-title">Problème</span>
 					<p>{{exercice.description}}</p>
 				</div>
 			</div>
 		</div>
 		<!-- validate section -->
-		<div class="col s12 m6 mt-auto">
+		<div class="col s12 m6">
 			<div class="card white">
-				<div class="card-content text-black darken-1">
+				<div class="card-content blue-grey-text darken-1">
 					<span id="result" class="card-title center gray-text">
 						{% if resolution_rep is empty %}
 							Aucune Tentative pour le moment !
@@ -47,17 +45,19 @@
 	<!-- end section description  -->
 
 	<!-- start section exercice -->
-	<div class="row loerRow">
+	<div
+		class="row">
 		<!-- sample unsorted div -->
 		<div class="col s12 m6">
 			<div class="card white">
-				<div class="card-content text-black darken-1">
+				<div class="card-content blue-grey-text darken-1">
 					<span class="card-title">Propositions</span>
 					<div class="responsive-table">
 						<div>
 							<ul class="list1 sortable">
+
 								{% for solution_line in solutions %}
-									<li id="{{solution_line}}"><pre><code>{{solution_line}}</code></pre></li>
+									<li id="{{solution_line}}">{{solution_line}}</li>
 								{% endfor %}
 							</ul>
 						</div>
@@ -68,9 +68,7 @@
 		<!-- sample sorted div -->
 		<div class="col s12 m6">
 			<div class="card white">
-				<div class="card-content text-black darken-1">
-				<button class="btn right" style="background-color:#5B7f95!important;" onclick="postRequest()">Valider</button>
-				<button class="btn right" style="color:#000!important;background-color:#FFF!important;" onclick="reloadData()">Effacer</button>
+				<div class="card-content blue-grey-text darken-1">
 					<span class="card-title">Solution</span>
 					<div class="responsive-table">
 						<div>
@@ -79,17 +77,21 @@
 					</div>
 				</div>
 			</div>
-			
+			<button class="btn right green" onclick="postRequest()">Valider</button>
+			<button class="btn right green-text white" onclick="reloadData()">Effacer</button>
 		</div>
 	</div>
 	<div id="path-to-controller" data-href="{{ path('exercice.play', {slug: exercice.slug,id: exercice.id})}}"></div>
 	<!-- end section exercice  -->
-	</div>
+	<container style="padding:5px;">
+		<a class="btn btn-danger text-center" style="background-color:#007bff!important;" href="{{path('exercice.show',{slug: exercice.slug,id: exercice.id})}}">
+			Back To Exercice
+		</a>
+	</container>
 {% endblock %}
 
 
 {% block javascripts %}
 	<script src="/asset/js/scripts.js"></script>
-	<script>hljs.highlightAll();</script>
 
 {% endblock %}

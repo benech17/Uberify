@@ -1,0 +1,14 @@
+#homeJumbotron {
+    background: url("/images/utils/colour.jpg") no-repeat center center;
+    background-size: 65%;
+}
+
+#titleHome {
+    color: white;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+#sloganHome {
+    color: white;
+}

@@ -8,13 +8,18 @@
 		</title>
 		<script src="https://kit.fontawesome.com/e7b473528e.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> {% block stylesheets %}{% endblock %}
-
-		<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> {% block head %}{% endblock %}
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+		<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/litera/bootstrap.min.css" rel="stylesheet"> {% block head %}{% endblock %}
 		</head>
 
 		<body>
-			<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-				<a class="navbar-brand" href="/">Codify</a>
+			<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#5B7f95!important;">
+			<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" version="1.1" viewBox="0.000003814697265625 -0.0006857814150862396 160 157.38336181640625" class="mt-n2">
+				<path d="M139.539078,0.229226287 L9.01110668,82.3993233 C2.8630435,86.1175452 -0.141748171,90.2806109 0.00513414328,94.8927169 L0.00513414328,107.3987 C0.152016542,112.015003 3.22815107,116.106726 9.23772518,119.678065 L73.8365016,156.965201 C74.2200744,157.189721 74.6481315,157.32779 75.0908769,157.369337 C75.5332026,157.410884 75.9793053,157.355068 76.3981299,157.205668 C76.8165348,157.056687 77.1975896,156.817899 77.5144358,156.505669 C77.8308624,156.193858 78.0751067,155.816581 78.2303824,155.399854 L92.7339659,120.349528 L61.9726038,102.933477 C61.0858541,102.473525 60.340531,101.781919 59.8155315,100.93168 C59.4223065,100.292952 59.1604362,99.582041 59.0450286,98.8409146 C58.9292014,98.0997882 58.9627745,97.3431342 59.1428103,96.6150174 C59.3228461,95.8864809 59.6459873,95.2015895 60.0937687,94.5997915 C60.54155,93.9979935 61.1047389,93.4910395 61.750182,93.1091454 L118.22435,58.4994656 L141.511498,1.79457086 C141.604664,1.52898238 141.613057,1.24101743 141.535839,0.970409765 C141.45862,0.699806302 141.298729,0.459897054 141.079244,0.283782591 C140.861019,0.109836531 140.592854,0.0106304247 140.314197,0 C140.035121,-0.00901647533 139.76066,0.071062946 139.530685,0.229226287 L139.539078,0.229226287 Z" fill="#FFF"></path>
+				<circle cx="130" cy="100" r="30" fill="#F19309"></circle>
+			</svg>
+
+				<a class="navbar-brand px-2" href="/"><b>/CODIFY/</b></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -22,13 +27,13 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item ">
-							<a class="nav-link {% if current_menu is defined and current_menu == 'exercices' %} active{% endif %}" href="{{path('exercice.index')}}">
+							<a class="nav-link text-white {% if current_menu is defined and current_menu == 'exercices' %} active{% endif %}" href="{{path('exercice.index')}}">
 								Exercices
 							</a>
 						</li>
 						{% if app.user %}
 							<li class="nav-item ">
-								<a class="nav-link {% if current_menu is defined and current_menu == 'user' %} active{% endif %}" href="{{path('user.show', {'id':app.user.id})}}">
+								<a class="nav-link text-white {% if current_menu is defined and current_menu == 'user' %} active{% endif %}" href="{{path('user.show', {'id':app.user.id})}}">
 									Profil
 								</a>
 							</li>
@@ -36,14 +41,14 @@
 
 						{% if app.user and is_granted('ROLE_ENSEIGNANT') %}
 							<li class="nav-item ">
-								<a class="nav-link {% if current_menu is defined and current_menu == 'enseignant' %} active{% endif %}" href="{{path('enseignant.exercice.index')}}">
+								<a class="nav-link text-white {% if current_menu is defined and current_menu == 'enseignant' %} active{% endif %}" href="{{path('enseignant.exercice.index')}}">
 									Espace enseignant
 								</a>
 							</li>
 						{% endif %}
 						{% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
 							<li class="nav-item ">
-								<a class="nav-link {% if current_menu is defined and current_menu == 'admin' %} active{% endif %}" href="{{path('admin.users.index')}}">
+								<a class="nav-link text-white {% if current_menu is defined and current_menu == 'admin' %} active{% endif %}" href="{{path('admin.users.index')}}">
 									Espace Admin
 								</a>
 							</li>
@@ -56,11 +61,11 @@
 					<ul class="navbar-nav ">
 						<li class="nav-item">
 							{% if app.user %}
-								<a href="{{ path('logout') }}" class="nav-link">
+								<a href="{{ path('logout') }}" class="nav-link text-white">
 									Se déconnecter
 								</a>
 							{% else %}
-								<a href="{{ path('login') }}" class="nav-link">
+								<a href="{{ path('login') }}" class="nav-link text-white">
 									Se Connecter
 								</a>
 							{% endif %}
@@ -70,14 +75,16 @@
 
 				</div>
 			</nav>
+
 			{% block body %}{% endblock %}
+
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 			<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-
-
+			<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+			
 			<script src="/asset/js/custom.js"></script>
 
 			{% block javascripts %}{% endblock %}
