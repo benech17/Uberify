@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title exercice.title %}
+{% block head %}
+	<!-- Compiled and minified CSS -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+	{% block stylesheets %}
+		<link rel="stylesheet" href="/asset/css/show-ex.css">
+
+	{% endblock %}
+
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="container">
+
+
+		<div class="row">
+			<div class="col-md-17">
+				<div class="card">
+					<div class="card-image">
+						{% if exercice.category.title == 'Java' %}
+							<img src="/images/utils/java.jpg " alt="card-img-top" class="center">
+						{% elseif exercice.category.title =='C' %}
+							<img src="/images/utils/C.jpg " alt="card-img-top" class="center">
+						{% elseif exercice.category.title =='JavaScript' %}
+							<img src="/images/utils/javascript.jpg " alt="card-img-top" class="center">
+						{% elseif exercice.category.title =='Php'%}
+							<img src="/images/utils/php.jpg " alt="card-img-top" class="center">
+						{% elseif exercice.category.title =='Python'%}
+							<img src="/images/utils/python.jpg " alt="card-img-top" class="center">
+						{% elseif exercice.category.title =='Ocaml' %}
+							<img src="/images/utils/ocaml.jpg " alt="card-img-top" class="center">
+						{% else %}
+							<img src="/images/utils/fond.png " alt="card-img-top" class="center">
+						{% endif %}
+
+					</div>
+					<div class="card-content">
+						<h3>
+							{{exercice.title}}
+						</h3>
+						<h5>
+							{{exercice.difficulte}}
+							étoiles  - crée le
+							{{exercice.createdAt | date('d/m/Y')}}
+							à
+							{{exercice.createdAt | date('H:i')}}
+							dans la catégorie
+							{{exercice.category.title}}
+							par
+							{% if exercice.author %}
+								{{exercice.author.username}}
+							{% endif %}
+						</h5>
+
+						<a href="mailto:someone@codfiy.com" class="btn btn btn-success">
+							Contacter l'enseignant
+						</a>
+
+						{% if app.user %}
+							<a href="{{ path('exercice.play', {'id':exercice.id , slug:exercice.slug}) }}">
+								<img src="/images/utils/play-btn.png " alt="Play" style="width: 50px; height:50px;">
+							</a>
+						{% endif %}
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<span>
+			<h4>
+				Description
+			</h4>
+			<h6>
+				{{exercice.description | nl2br }}
+			</h6>
+		</span>
+
+		<section id="commentaires">
+
+
+			<div class="row">
+				<h3>Comments |{{exercice.comments | length }}|
+				</h3>
+			</div>
+
+			<hr class='strong-hr'>
+			{% for comment in exercice.comments %}
+				<div class="row comment">
+					<div class="head">
+						<small>
+							<strong class='user' style="font-weight:700px;">{{comment.author}}</strong>
+							{{comment.createdAt | date('d/m/Y à H:i') }}</small>
+					</div>
+					<span style=" width:100%; display:block;">{{comment.content |raw}}</span>
+				</div>
+				<hr>
+			{% endfor %}
+			<hr class='strong-hr'>
+
+		</div>
+
+		<div class="container ">
+			{% if app.user %}
+				{{form_start(commentForm)}}
+				<div class="form-row align-items-end">
+					<div class="col">
+						{{form_row(commentForm.content,{'attr': {
+			'placeholder': " Votre commentaire"
+		}})}}
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<button type="submit" class="btn  btn-success">
+								Commenter
+							</button>
+						</div>
+					</div>
+				</div>
+				{{form_end(commentForm)}}
+			{% else %}
+				<h3>
+					Vous ne pouvez pas commenter si vous n'etes pas connecté !
+				</h3>
+				<a href="{{path('login')}}" class="btn btn-primary">
+					Connexion
+				</a>
+			{% endif %}
+
+		</div>
+
+	</section>
+
+{% endblock %}

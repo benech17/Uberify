@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+{% block head %}
+	<!-- Compiled and minified CSS -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<!-- custom stylesheet css -->
+	<link
+	rel="stylesheet" href="/asset/css/styles.css">
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+	<title>Exercice</title>
+{% endblock %}
+{% block body %}
+
+	<!-- start section description -->
+	<div class="row">
+		<div class="col s12 m6">
+			<div class="card white">
+				<div class="card-content blue-grey-text darken-1">
+					<span class="card-title">Problème</span>
+					<p>{{exercice.description}}</p>
+				</div>
+			</div>
+		</div>
+		<!-- validate section -->
+		<div class="col s12 m6">
+			<div class="card white">
+				<div class="card-content blue-grey-text darken-1">
+					<span id="result" class="card-title center gray-text">
+						{% if resolution_rep is empty %}
+							Aucune Tentative pour le moment !
+						{% else %}
+							Vous avez tenté
+							{{resolution_rep[0].getTentatives()}}
+							fois
+						{% endif %}
+
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end section description  -->
+
+	<!-- start section exercice -->
+	<div
+		class="row">
+		<!-- sample unsorted div -->
+		<div class="col s12 m6">
+			<div class="card white">
+				<div class="card-content blue-grey-text darken-1">
+					<span class="card-title">Propositions</span>
+					<div class="responsive-table">
+						<div>
+							<ul class="list1 sortable">
+
+								{% for solution_line in solutions %}
+									<li id="{{solution_line}}">{{solution_line}}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- sample sorted div -->
+		<div class="col s12 m6">
+			<div class="card white">
+				<div class="card-content blue-grey-text darken-1">
+					<span class="card-title">Solution</span>
+					<div class="responsive-table">
+						<div>
+							<ul id="list2" class="list2 sortable"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button class="btn right green" onclick="postRequest()">Valider</button>
+			<button class="btn right green-text white" onclick="reloadData()">Effacer</button>
+		</div>
+	</div>
+	<div id="path-to-controller" data-href="{{ path('exercice.play', {slug: exercice.slug,id: exercice.id})}}"></div>
+	<!-- end section exercice  -->
+	<container style="padding:5px;">
+		<a class="btn btn-danger text-center" style="background-color:#007bff!important;" href="{{path('exercice.show',{slug: exercice.slug,id: exercice.id})}}">
+			Back To Exercice
+		</a>
+	</container>
+{% endblock %}
+
+
+{% block javascripts %}
+	<script src="/asset/js/scripts.js"></script>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+<tr>
+	<td colspan="3" class="accordion-body collapse" id="accordion{{i}}">
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Nb. Tentatives</th>
+				<th>Dernier essai</th>
+				<th>Statut</th>
+			</tr>
+			{% for resolution in exercice.resolutions %}
+				{% if "ROLE_ENSEIGNANT" not in resolution.user.getRoles() %}{# on veut prendre en compte uniquement les résultats des étudiants #}<tr>
+						<td>{{resolution.user.getUsername()}}</td>
+						<td>{{resolution.tentatives}}</td>
+						<td>{{resolution.getLastTryAt() | date('d/m/Y à H:i')}}</td>
+						<td>{{ (resolution.getIsResolved()==1)? 'succés' : 'echec' }}</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		</table>
+	</td>
+</tr>

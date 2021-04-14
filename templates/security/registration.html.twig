@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block title "S'inscrire" %}
+
+{% block head %}
+	<!-- Compiled and minified CSS -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+	{% block stylesheets %}
+		<link rel="stylesheet" href="/asset/css/login-style.css">
+	{% endblock %}
+{% endblock %}
+{% block body %}
+	{% if app.user %}
+		<h1>
+			Vous êtes deja connecté
+		</h1>
+	{% else %}
+		<div class="container">
+			<div id="login-box" style="top:120px">
+				<div class="logo">
+					<h1 class="logo-caption">
+						<span class="tweak">R</span>egister</h1>
+				</div>
+
+				<div class="controls">
+					{{ form_start(form)}}
+					<form class="col s12" action="{{ path('registration')}}" method="post" novalidate>
+						<div class="row">
+							<div class="input-field col s6">
+								{{ form_row(form.username, {'label':'Nom d\'utilisateur','attr': {'placeholder': 'Nom d\'utilisateur...'}}) }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								{{ form_row(form.email, {'label':'Adresse email','attr': {'placeholder': 'Adresse email...'}}
+								)  }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+								{{ form_row(form.password, {'label':'Mot de passe','attr': {'placeholder': 'Mot de passe'}}
+								)  }}
+							</div>
+							<div class="input-field col s6">
+								{{ form_row(form.confirm_password, {'label':'Confirmation du mdp','attr': {'placeholder': 'Confirmez votre mot de passe'}}
+								)  }}
+							</div>
+						</div>
+						<a href={{path('login')}}>Deja inscrit ? Connectez-vous !</a>
+						<button type="submit" class="btn btn-default btn-block btn-custom">Inscription</button>
+						{{ form_end(form)}}
+
+
+					</form>
+					<!-- /.controls -->
+				</div>
+				<!-- /#login-box -->
+			</div>
+			<!-- /.container -->
+			<div id="particles-js"></div>
+
+		{% endif %}
+
+	{% endblock %}

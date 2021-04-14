@@ -1,0 +1,33 @@
+.sortable {
+    font-family: 'Ubuntu';
+    list-style-type: none;
+    list-style-position: inside;
+    margin: 0px 12px 8px 0px;
+    width: 60%;
+    padding: 2px;
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: gray;
+    min-height: 100px;
+    color: white;
+    width: 100%;
+}
+
+.sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    font-size: 1em;
+    height: 30px;
+    background-color: #546e7a;
+}
+
+.container {
+    background-color: red;
+}
+
+.accordion {
+    background-color: #c71d1d;
+    color: white;
+}

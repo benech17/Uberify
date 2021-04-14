@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block title 'Gérer les exercices' %}
+
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>
+			<a href="{{path('enseignant.exercice.index')}}">Gérer les exercices
+			</a>
+			&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; | &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+			<a href="{{path('enseignant.formation.index')}}" style="opacity:0.3;">Gérer les formations
+			</a>
+		</h1>
+		{% for message in app.flashes('enseignant-exercice') %}
+			<div class="alert alert-success">
+				{{message}}
+			</div>
+
+		{% endfor %}
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				{% for exercice in exercices %}
+					<tr>
+						<td>
+							<a href="{{path('exercice.show',{'id':exercice.id ,'slug':exercice.slug} ) }}">{{exercice.title}}</a>
+						</td>
+						<td>
+							<a href="{{path('enseignant.exercice.edit',{id: exercice.id})}}" class="btn btn-secondary">
+								Editer
+							</a>
+							<form method="post" action="{{ path('enseignant.exercice.delete',{id:exercice.id})}}" style="display:inline-block" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet exercice ?')">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ exercice.id)}}">
+								<button class="btn btn-danger">Supprimer
+								</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="text-right">
+			<a href="{{path('enseignant.exercice.new')}}" class="btn btn-primary">
+				Créer un nouvel exercice</a>
+		</div>
+	</div>
+{% endblock %}
