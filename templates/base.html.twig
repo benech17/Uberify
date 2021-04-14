@@ -76,6 +76,8 @@
 				</div>
 			</nav>
 
+			{% include( 'chat/messages.html.twig') %}
+
 			{% block body %}{% endblock %}
 
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -88,5 +90,6 @@
 			<script src="/asset/js/custom.js"></script>
 
 			{% block javascripts %}{% endblock %}
+
 		</body>
 	</html>
