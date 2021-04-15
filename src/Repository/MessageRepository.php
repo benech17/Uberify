@@ -23,7 +23,7 @@ class MessageRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('m')
             ->where('m.conversation = '.$convId)
             ->andWhere('m.id > '.$lastMsgId)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('m.id', 'ASC')
             ->setMaxResults(50)
             ->getQuery()
             ->getResult();

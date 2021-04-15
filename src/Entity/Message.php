@@ -51,7 +51,7 @@ class Message
         return $this->sender;
     }
 
-    public function setSender(string $sender): self
+    public function setSender(\App\Entity\User $sender): self
     {
         $this->sender = $sender;
         return $this;

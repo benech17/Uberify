@@ -21,6 +21,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations\Put;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\View as ViewAnnotation;
@@ -96,7 +97,7 @@ class ChatController extends AbstractController
     }
 
     /**
-     * @Route("/conversation/{convId}/{lastMsgId}",name="conversation.showMessages",requirements={"convId": "d+", "lastMsgId": "d+"})
+     * @Route("/conversation/{convId}/{lastMsgId}",name="conversation.showMessages",requirements={"convId": "\d+", "lastMsgId": "\d+"})
      */
     public function showMessages($convId, $lastMsgId, Request $request)
     {
@@ -125,6 +126,7 @@ class ChatController extends AbstractController
         }
 
         $reponse->setContent(json_encode(["messages" => $msgs]));
+        return $reponse;
     }
 
     /**
@@ -141,9 +143,8 @@ class ChatController extends AbstractController
         $newMsg = [];
 
         $user = $this->security->getUser();
-
         $conversation = $this->convRepository->find($convId);
-        if($conversation == null || ($conversation->getUserOne()->getId() != $user->getId()
+        if($conversation == null || $user == null || ($conversation->getUserOne()->getId() != $user->getId()
                 && $conversation->getUserTwo()->getId() != $user->getId()))
         {
             $result = "f";
@@ -156,7 +157,7 @@ class ChatController extends AbstractController
             $message->setContent($data["content"]);
             $message->setSender($user);
             $message->setConversation($conversation);
-            $manager->persist();
+            $manager->persist($message);
             $manager->flush();
 
             $result = "s";
