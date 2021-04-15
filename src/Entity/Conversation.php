@@ -40,7 +40,7 @@ class Conversation
         return $this->userOne;
     }
 
-    public function setUserOne(string $user): self
+    public function setUserOne(\App\Entity\User $user): self
     {
         $this->userOne = $user;
         return $this;
@@ -51,7 +51,7 @@ class Conversation
         return $this->userTwo;
     }
 
-    public function setUserTwo(string $user): self
+    public function setUserTwo(\App\Entity\User $user): self
     {
         $this->userTwo = $user;
         return $this;

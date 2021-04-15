@@ -28,6 +28,15 @@ class ConversationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findConversationsByUsers($useridOne, $userIdTwo) {
+        return $this->createQueryBuilder('c')
+            ->where('c.userOne = '.$useridOne . ' OR ' . 'c.userOne = '.$userIdTwo)
+            ->andWhere('c.userTwo = '.$useridOne . ' OR ' . 'c.userTwo = '. $userIdTwo)
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(20)
+            ->getQuery()
+            ->getResult();
+    }
 
     // /**
     //  * @return Comment[] Returns an array of Comment objects

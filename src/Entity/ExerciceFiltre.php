@@ -6,8 +6,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 class ExerciceFiltre{
-    
-   /**
+
+    /**
      * @var Category
      */
     private $category;
@@ -18,10 +18,13 @@ class ExerciceFiltre{
      */
     private $minDifficulte;
 
+    /**
+     * @var int
+     */
+    private $appreciation;
 
-    
 
-    
+
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -31,8 +34,8 @@ class ExerciceFiltre{
      * @return ExerciceFiltre
      */
     public function setCategory(?Category $category){
-       $this->category =$category;
-       return $this;
+        $this->category =$category;
+        return $this;
     }
 
 
@@ -45,11 +48,26 @@ class ExerciceFiltre{
         return $this->minDifficulte;
     }
 
-     /**
+    /**
      * @return ExerciceFiltre
      */
     public function setMinDifficulte(int $difficulte){
         $this->minDifficulte =$difficulte;
         return $this;
-     }
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getAppreciation(){
+        return $this->appreciation;
+    }
+
+    /**
+     * @return ExerciceFiltre
+     */
+    public function setAppreciation(int $appreciation){
+        $this->appreciation =$appreciation;
+        return $this;
+    }
 }

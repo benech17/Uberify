@@ -10,6 +10,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 
 class ExerciceFiltreType extends AbstractType
@@ -28,6 +30,14 @@ class ExerciceFiltreType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'title',
                 'label'=>false
+            ])
+            ->add('appreciation', ChoiceType::class, [
+                'choices'=> [
+                    'Du plus apprecié au moins apprecié' =>0,
+                    'Du moins apprecié au plus apprecié' =>1,
+                ],
+                'label'=>false
+
             ])
             //button submit aded on the html index
         ;

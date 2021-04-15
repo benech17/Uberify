@@ -24,10 +24,10 @@ pre {
 
 .upperRow{
     margin-bottom:0px !important;
-    margin-top:2rem !important; 
+    margin-top:2rem !important;
 }
 .lowerRow{
-    margin-top:0px !important; 
+    margin-top:0px !important;
 }
 
 .sortable li {
@@ -52,7 +52,7 @@ pre {
     position: relative;
     margin-top: 15px;
     z-index: 100;
-  }
+}
 
 .avatar img {
     width: 100px;
@@ -61,29 +61,33 @@ pre {
     -moz-border-radius: 50%;
     border-radius: 50%;
     border: 5px solid rgba(0,0,30,0.8);
-  }
+}
 
-  .rating {
+.rating {
     unicode-bidi: bidi-override;
     direction: rtl;
     text-align: center;
     font-size: 50px;
-  }
-  .rating > span {
+}
+.rating > span {
     display: inline-block;
     position: relative;
     width: 1.1em;
-  }
-  .rating > span:hover,
-  .rating > span:hover ~ span {
+}
+.rating > span:hover,
+.rating > span:hover ~ span {
     color: transparent;
     cursor: pointer;
-  }
-  .rating > span:hover:before,
-  .rating > span:hover ~ span:before {
-     content: "\2605";
-     position: absolute;
-     left: 0; 
-     color: gold;
-     cursor: pointer;
-  }
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: gold;
+    cursor: pointer;
+}
+
+.pagination {
+    font-size: 5rem!important;
+}

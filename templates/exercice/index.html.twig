@@ -7,12 +7,16 @@
 			<h3>
 				Rechercher un exercice
 			</h3>
+			{{form_start(form)}}
 			<div class="form-row align-items-end">
 				<div class="col">
 					{{ form_row(form.minDifficulte) }}
 				</div>
 				<div class="col">
 					{{ form_row(form.category) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.appreciation) }}
 				</div>
 				<div class="col">
 					<div class="form-group">
@@ -35,8 +39,10 @@
 			{% endfor %}
 		</div>
 
-		<div class="pagination">
-			{{ knp_pagination_render(exercices)}}
+		<div class="d-flex justify-content-center text-center pb-3" style="font-size: 5rem!important;">
+			<div class="border rounded border-primary" style="color:#5B7f95!important;">
+				{{ knp_pagination_render(exercices)}}
+			</div>		
 		</div>
 	</div>
 {% endblock %}

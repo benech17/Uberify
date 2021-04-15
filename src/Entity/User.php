@@ -39,7 +39,7 @@ class User implements UserInterface
      */
     private $password;
 
-    /** 
+    /**
      * @Assert\Length(min="8",minMessage="Votre mot de passe doit faire minimum 8 characteres")
      * @Assert\EqualTo(propertyPath="password",message="Mots de passe differents")
      */
@@ -52,7 +52,7 @@ class User implements UserInterface
 
     /**
      * @var array
-     * 
+     *
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -71,6 +71,16 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Resolution::class, mappedBy="user",cascade={"remove"})
      */
     private $resolutions;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $mean_note = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $total_notes = 0;
 
     /**
      * @ORM\ManyToMany(targetEntity=Formation::class, mappedBy="inscrits",cascade={"remove"})
@@ -140,7 +150,7 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
-    } 
+    }
 
     public function serialize()
     {
@@ -157,7 +167,7 @@ class User implements UserInterface
             $this->id,
             $this->username,
             $this->password
-        ) = unserialize($serialized);
+            ) = unserialize($serialized);
     }
 
     public function getEmail(): ?string
@@ -310,4 +320,32 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getMeanNote(): ?float
+    {
+        return $this->mean_note;
+    }
+
+    public function setMeanNote(?float $mean_note): self
+    {
+        $this->mean_note = $mean_note;
+
+        return $this;
+    }
+
+    public function getTotalNotes(): ?int
+    {
+        return $this->total_notes;
+    }
+
+    public function setTotalNotes(?int $total_notes): self
+    {
+        $this->total_notes = $total_notes;
+
+        return $this;
+    }
+
+    public function updateMeanNote($newNote) {
+        $this->mean_note = ($newNote * 1 + $this->mean_note * $this->total_notes) / ($this->total_notes + 1);
+        $this->total_notes++;
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Conversation;
 use App\Entity\Exercice;
 use App\Entity\Message;
 use App\Entity\User;
@@ -9,6 +10,7 @@ use App\Entity\Resolution;
 use App\Form\MessageType;
 use App\Repository\ConversationRepository;
 use App\Repository\MessageRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use App\Form\ExerciceFiltreType;
 use DateTime;
@@ -63,8 +65,15 @@ class ChatController extends AbstractController
     private $serializer;
 
 
-    public function __construct(Security $security, ConversationRepository $convRepository, MessageRepository $msgRepository, EntityManagerInterface $manager, SerializerInterface $serializer)
+    /**
+     * @var UserRepository
+     */
+    private $repository_users;
+
+
+    public function __construct(UserRepository $repository_users, Security $security, ConversationRepository $convRepository, MessageRepository $msgRepository, EntityManagerInterface $manager, SerializerInterface $serializer)
     {
+        $this->repository_users = $repository_users;
         $this->security = $security;
         $this->convRepository = $convRepository;
         $this->msgRepository = $msgRepository;
@@ -166,5 +175,33 @@ class ChatController extends AbstractController
         $reponse->setContent(json_encode(["result" => $result, "msg" => $newMsg]));
         return $reponse;
     }
+
+
+
+    /**
+     * @Route("/conversations/add/{userId}" , name="conversation.new")
+     * @return Response
+     */
+    public function addConversation($userId, Request $request, EntityManagerInterface $manager): Response
+    {
+        $user = $this->security->getUser();
+        if($user == null)
+        {
+            return $this->redirectToRoute('/', [], 301);
+        }
+
+        $conversations = $this->convRepository->findConversationsByUsers($user->getId(), $userId);
+        if($conversations == null || count($conversations) == 0) {
+            $conv = new Conversation();
+            $conv->setUserOne($user);
+            $conv->setUserTwo($this->repository_users->find($userId));
+            $manager->persist($conv);
+            $manager->flush();
+        }
+        return $this->redirectToRoute('conversation.list', [], 301);
+    }
+
+
+
 
 }
