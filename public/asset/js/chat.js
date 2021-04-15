@@ -21,6 +21,7 @@ function loadNewMessages() {
         //data: {"hash": token},
         success: function(oRep){
             var i;
+            console.dir(oRep);
             for(i=0;i<oRep.messages.length;i++) {
                 var incomingMsg = oRep.messages[i].incoming ? incomingHtml.clone() : outgoingHtml.clone();
                 incomingMsg.find("p").html(oRep.messages[i].content);
