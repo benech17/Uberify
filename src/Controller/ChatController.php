@@ -87,7 +87,7 @@ class ChatController extends AbstractController
 
         $convs = [];
         foreach($conversations as $conversation) {
-            $conv = [ "id" => $conversation->getId(), "user" => ($conversation->getUserOne() != $user ? $conversation->getUserOne() : $conversation->getUserTwo()) ];
+            $conv = [ "id" => $conversation->getId(), "user" => (($conversation->getUserOne()->getId() != $user->getId())? $conversation->getUserOne() : $conversation->getUserTwo()) ];
             array_push($convs, $conv);
         }
         return $this->render('chat/index.html.twig', [

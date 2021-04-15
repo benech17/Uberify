@@ -48,7 +48,7 @@ class Conversation
 
     public function getUserTwo(): ?User
     {
-        return $this->userOne;
+        return $this->userTwo;
     }
 
     public function setUserTwo(string $user): self
