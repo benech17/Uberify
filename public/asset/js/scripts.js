@@ -32,7 +32,7 @@ function giveFeedback(num,exoid){
             $('#rating').html("👍")
             setTimeout(function () {
                 $('#feedbackModal').modal('hide');
-            }, 5000);
+            }, 2000);
         }
     })
     .fail(function(jqXHR, textStatus) {

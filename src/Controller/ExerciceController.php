@@ -200,6 +200,7 @@ class ExerciceController extends AbstractController
 
             if ($feedback >= 0 && $feedback <= 5) {
                 $exercice->updateMeanFeedback($feedback);
+                $exercice->getUser()->updateMeanNote($feedback);
                 $manager->persist($exercice);
                 $manager->flush();
 

@@ -62,6 +62,15 @@ class ExerciceRepository extends ServiceEntityRepository
                     ->andwhere('e.difficulte >= :minDifficulte')
                     ->setParameter('minDifficulte',$search->getMinDifficulte());
         }
+        if($search->getAppreciation()){
+            if($search->getAppreaciation() == 1)
+                $query=$query
+                    ->orderBy('e.mean_feedback', 'ASC');
+            else
+                $query=$query
+                    ->orderBy('e.mean_feedback', 'DESC');
+
+        }
         return $query->getQuery();
     }
 

@@ -1,0 +1,2 @@
+df = pd.DataFrame([[2, 3.12], [4.356, 5.567]])
+df.applymap(lambda x: len(str(x)))

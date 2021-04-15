@@ -38,6 +38,11 @@
 									Profil
 								</a>
 							</li>
+							<li class="nav-item ">
+								<a class="nav-link text-white {% if current_menu is defined and current_menu == 'user' %} active{% endif %}" href="{{path('usersEnseignants.index') }}">
+									Trouver un Enseignant
+								</a>
+							</li>
 						{% endif %}
 
 						{% if app.user and is_granted('ROLE_ENSEIGNANT') %}

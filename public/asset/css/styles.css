@@ -87,3 +87,7 @@ pre {
      color: gold;
      cursor: pointer;
   }
+
+  .pagination {
+    font-size: 5rem!important;
+  }

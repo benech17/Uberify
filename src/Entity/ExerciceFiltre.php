@@ -18,7 +18,10 @@ class ExerciceFiltre{
      */
     private $minDifficulte;
 
-
+    /**
+     * @var int
+     */
+    private $appreciation;
     
 
     
@@ -50,6 +53,21 @@ class ExerciceFiltre{
      */
     public function setMinDifficulte(int $difficulte){
         $this->minDifficulte =$difficulte;
+        return $this;
+     }
+
+     /**
+     * @return int|null
+     */
+    public function getAppreciation(){
+        return $this->appreciation;
+    }
+
+     /**
+     * @return ExerciceFiltre
+     */
+    public function setAppreciation(int $appreciation){
+        $this->appreciation =$appreciation;
         return $this;
      }
 }
