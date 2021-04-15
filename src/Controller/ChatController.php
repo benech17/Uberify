@@ -96,13 +96,17 @@ class ChatController extends AbstractController
     }
 
     /**
-     * @Route("/conversation/{convId}/{lastMsgId}",name="conversation.show",requirements={"convId": "d+", "lastMsgId": "d+"})
+     * @Route("/conversation/{convId}/{lastMsgId}",name="conversation.showMessages",requirements={"convId": "d+", "lastMsgId": "d+"})
      */
     public function showMessages($convId, $lastMsgId, Request $request)
     {
+        $reponse = new JsonResponse();
+        $reponse->headers->set('Content-Type', 'application/json');
+        $msgs = [];
+
         $user = $this->security->getUser();
         $conversation = $this->convRepository->find($convId);
-        if($conversation == null || ($conversation->getUserOne()->getId() != $user->getId()
+        if($user == null || $conversation == null || ($conversation->getUserOne()->getId() != $user->getId()
                 && $conversation->getUserTwo()->getId() != $user->getId()))
         {
             return $this->redirectToRoute('/', [], 301);
@@ -110,9 +114,17 @@ class ChatController extends AbstractController
 
         $messages = $this->msgRepository->findMessagesByConversation($lastMsgId, $convId);
 
-        return $this->render('chat/index.html.twig', [
-            'messages' => $messages,
-        ]);
+        foreach($messages as $message) {
+            $msg = [
+                "id" => $message->getId(),
+                "content" => $message->getContent(),
+                "createdAt" => $message->getCreatedAt(),
+                "incoming" => $message->getSender() != $user,
+                ];
+            array_push($msgs, $msg);
+        }
+
+        $reponse->setContent(json_encode(["messages" => $msgs]));
     }
 
     /**
