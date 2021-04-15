@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
+use App\Entity\Conversation;
 
 /**
  * @ORM\Entity(repositoryClass=MessageRepository::class)
@@ -25,10 +26,10 @@ class Message
     private $sender;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\ManyToOne(targetEntity=Conversation::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $receiver;
+    private $conversation;
 
     /**
      * @ORM\Column(type="text")
@@ -56,14 +57,14 @@ class Message
         return $this;
     }
 
-    public function getReceiver(): ?User
+    public function getConversation(): ?Conversation
     {
-        return $this->receiver;
+        return $this->conversation;
     }
 
-    public function setReceiver(string $receiver): self
+    public function setConversation(Conversation $conversation): self
     {
-        $this->receiver = $receiver;
+        $this->conversation = $conversation;
         return $this;
     }
 

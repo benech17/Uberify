@@ -21,8 +21,10 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations\Put;
+use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
-use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\Annotations\View as ViewAnnotation;
+use FOS\RestBundle\View\View;
 use Symfony\Component\Validator\Constraints\Json;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -73,20 +75,30 @@ class ChatController extends AbstractController
      * @Route("/conversations" , name="conversation.list")
      * @return Response
      */
-    public function listerConversations(UserInterface $user, Request $request): Response
+    public function listerConversations(Request $request): Response
     {
+        $user = $this->security->getUser();
+        if($user == null)
+        {
+            return $this->redirectToRoute('/', [], 301);
+        }
+
         $conversations = $this->convRepository->findConversationsByUser($user->getId());
 
-        //return $this->render('chat/index.html.twig', [
-            //'conversation' => $conversations,
-        //]);
+        $convs = [];
+        foreach($conversations as $conversation) {
+            $conv = [ "id" => $conversation->getId(), "user" => ($conversation->getUserOne() != $user ? $conversation->getUserOne() : $conversation->getUserTwo()) ];
+            array_push($convs, $conv);
+        }
+        return $this->render('chat/index.html.twig', [
+            'conversations' => $convs,
+        ]);
     }
 
     /**
      * @Route("/conversation/{convId}/{lastMsgId}",name="conversation.show",requirements={"convId": "d+", "lastMsgId": "d+"})
-     * @return Response
      */
-    public function showMessages($convId, $lastMsgId, Request $request): Response
+    public function showMessages($convId, $lastMsgId, Request $request)
     {
         $user = $this->security->getUser();
         $conversation = $this->convRepository->find($convId);
@@ -104,34 +116,42 @@ class ChatController extends AbstractController
     }
 
     /**
-     * @Put("/conversation/{convId}/{lastMsgId}",name="conversation.show")
+     * @Put("/conversation/{convId}",name="conversation.sendmessage")
      * @return Response
      *
-     * @View
+     * @ViewAnnotation
      */
-    public function sendMessage($convId, $lastMsgId, Request $request): Response
+    public function sendMessage($convId, Request $request, EntityManagerInterface $manager): Response
     {
+        $reponse = new JsonResponse();
+        $reponse->headers->set('Content-Type', 'application/json');
+        $result = "f";
+        $newMsg = [];
+
         $user = $this->security->getUser();
-        $data = (array)(json_decode($request->getContent()));
 
-        $message = new Message();
-        $message->setCreatedAt(new \DateTime());
-        $form = $this->get('form.factory')->create(MessageType::class, $message);
-        $form->submit($data);
+        $conversation = $this->convRepository->find($convId);
+        if($conversation == null || ($conversation->getUserOne()->getId() != $user->getId()
+                && $conversation->getUserTwo()->getId() != $user->getId()))
+        {
+            $result = "f";
+        } else {
 
-        $response = new Response();
+            $data = (array)(json_decode($request->getContent()));
 
-        $response->headers->set('Content-Type', 'application/json');
-        if($form->isValid()) {
-            $response->setContent(json_encode(""));
-        }else {
-            var_dump($form->getErrors());
-            $response->setContent(json_encode($form->getErrors()));
+            $message = new Message();
+            $message->setCreatedAt(new \DateTime());
+            $message->setContent($data["content"]);
+            $message->setSender($user);
+            $message->setConversation($conversation);
+            $manager->persist();
+            $manager->flush();
+
+            $result = "s";
+            $newMsg = $message;
         }
-        return $response;
-        return $this->render('chat/index.html.twig', [
-            'messages' => $messages,
-        ]);
+        $reponse->setContent(json_encode(["result" => $result, "msg" => $newMsg]));
+        return $reponse;
     }
 
 }
